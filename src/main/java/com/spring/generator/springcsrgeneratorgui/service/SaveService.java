@@ -1,65 +1,111 @@
 package com.spring.generator.springcsrgeneratorgui.service;
 
-import org.json.JSONException;
+import lombok.SneakyThrows;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Scanner;
 
+import static com.spring.generator.springcsrgeneratorgui.utils.Const.APPLICATION_PROPERTIES;
+import static com.spring.generator.springcsrgeneratorgui.utils.Const.DIRECTORY_PATH;
 
-//TODO: install thread
 public class SaveService {
 
     private static String lastDirectoryModelPath = ".";
 
     private String path;
 
-    public void saveLastDirectoryModelPath(String directoryModelPath) {
-        this.setLastDirectoryModelPath(directoryModelPath);
+    private static final String SAVE_KEY = "directoryPath";
 
+    public SaveService() {
         try {
-            this.path = new PropertiesReaderService("application.properties").getProperty("directory.path");
-
-            File file = new File(this.path);
-
-            if(file.exists()){
-                file.delete();
-            }
-            else {
-                file.getParentFile().mkdirs();
-                file.createNewFile(); //TODO: Log
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        JSONObject json = new JSONObject();
-        try{
-            json.put("directoryPath", lastDirectoryModelPath);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try (
-                FileWriter fw = new FileWriter(this.path)
-                ) {
-
-            fw.write(json.toString());
-
+            this.path = new PropertiesReaderService(APPLICATION_PROPERTIES).getProperty(DIRECTORY_PATH);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Save lastDirectoryModelPath in Json file
+     * @param directoryModelPath String
+     */
+    @SneakyThrows
+    public void saveLastDirectoryModelPath(String directoryModelPath) {
+        if(directoryModelPath == null) return;
+        setLastDirectoryModelPath(directoryModelPath);
+
+        var st = new SaveThread();
+        st.start();
+    }
+
+    /**
+     * Load Json file
+     */
     public void loadLastDirectoryModelPath() {
-        //TODO
+
+        var lt = new LoadThread();
+        lt.start();
     }
 
     public String getLastDirectoryModelPath() {
         return lastDirectoryModelPath;
     }
 
-    private void setLastDirectoryModelPath(String directoryModelPath) {
+    static void setLastDirectoryModelPath(String directoryModelPath) {
         lastDirectoryModelPath = directoryModelPath;
+    }
+
+    private class SaveThread extends Thread {
+
+        @SneakyThrows
+        @Override
+        public void run() {
+            super.run();
+
+            var file = new File(path);
+
+            if(file.exists()) {
+                cleanUp(Path.of(path));
+            }
+            else if(!file.getParentFile().mkdirs() && !file.createNewFile()) {
+                return;
+            }
+
+            var json = new JSONObject();
+            json.put(SAVE_KEY, lastDirectoryModelPath);
+
+            try (FileWriter fw = new FileWriter(path) ) {
+                fw.write(json.toString());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        private void cleanUp(Path path) throws IOException {
+            Files.delete(path);
+        }
+    }
+
+    private class LoadThread extends Thread {
+
+        @Override
+        public void run() {
+            super.run();
+
+            try (Scanner scan = new Scanner(new File(path))) {
+                String myJson = scan.useDelimiter("\\Z").next();
+                JSONObject myJsonobject = new JSONObject(myJson);
+
+                setLastDirectoryModelPath(myJsonobject.getString(SAVE_KEY));
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

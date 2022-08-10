@@ -1,6 +1,7 @@
 package com.spring.generator.springcsrgeneratorgui;
 
 import com.spring.generator.springcsrgeneratorgui.service.PropertiesReaderService;
+import com.spring.generator.springcsrgeneratorgui.service.SaveService;
 
 import java.io.IOException;
 
@@ -8,6 +9,7 @@ import java.io.IOException;
 public class App {
 
     private PropertiesReaderService propertiesReaderService;
+    private final SaveService saveService = new SaveService();
 
     private final String title;
     private final String version;
@@ -24,6 +26,8 @@ public class App {
         catch (IOException e) {
             System.getLogger(App.class.getName());
         }
+
+        this.saveService.loadLastDirectoryModelPath();
 
 
         this.title = propertiesReaderService.getProperty("application.title");
