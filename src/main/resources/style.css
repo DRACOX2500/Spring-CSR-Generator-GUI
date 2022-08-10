@@ -1,0 +1,44 @@
+.root {
+    -fx-background-color: #1b1f23;
+    -fx-focus-color: transparent;
+}
+
+.tab {
+    -fx-font-family: Arial;
+    -fx-font-size: 15px;
+}
+
+.split-pane-divider {
+    -fx-background-color: #2b2f33;
+    -fx-pref-width: 3px;
+
+}
+
+.button {
+    -fx-background-color: #fff;
+    -fx-text-fill: #1b1f23;
+}
+
+.button:hover {
+    -fx-background-color: #75ae4c;
+    -fx-text-fill: #fff;
+}
+
+#body{
+    -fx-padding: 10px;
+    -fx-background-color: #1b1f23;
+}
+
+#splitPane {
+    -fx-background-color: #1b1f23;
+}
+
+.contentView {
+    -fx-background-color: #1b1f23;
+}
+
+.text-area {
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}

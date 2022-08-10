@@ -7,9 +7,9 @@ import com.spring.generator.springcsrgeneratorgui.service.SaveService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -27,10 +27,29 @@ public class MainController implements Initializable {
     @FXML
     public TreeView<ModelFile> treeView;
     @FXML
+    public VBox root;
+    @FXML
+    public HBox body;
+    @FXML
+    public TabPane tabs;
+    @FXML
+    public VBox contentView;
+    @FXML
+    public SplitPane splitPane;
+    @FXML
+    public TextArea fileEditor;
+    @FXML
     private MenuBar menuBar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        root.getStylesheets().add("style.css");
+        splitPane.prefWidthProperty().bind(root.widthProperty());
+        splitPane.prefHeightProperty().bind(root.heightProperty());
+        splitPane.setDividerPositions(0.25);
+
+        fileEditor.prefHeightProperty().bind(root.heightProperty());
+
         menuBar.setFocusTraversable(true);
         listView.setItems(
                 FXCollections.observableList(patternController.getPatternFileList())
