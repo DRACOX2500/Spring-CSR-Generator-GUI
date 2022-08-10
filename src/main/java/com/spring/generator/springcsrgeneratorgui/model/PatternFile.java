@@ -1,10 +1,18 @@
 package com.spring.generator.springcsrgeneratorgui.model;
 
-import java.io.File;
-
 public class PatternFile {
 
     private String name;
+
+    private String path;
+
+    public PatternFile() {
+    }
+
+    public PatternFile(String name, String path) {
+        this.name = name;
+        this.path = path;
+    }
 
     public String getName() {
         return name;
@@ -14,10 +22,12 @@ public class PatternFile {
         this.name = name;
     }
 
-    public void setNameFromPatternFile(File patternFile) {
-        if(!patternFile.isFile()) return;
-        var title = patternFile.getName();
-        this.name = title.split("Pattern")[0];
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     @Override

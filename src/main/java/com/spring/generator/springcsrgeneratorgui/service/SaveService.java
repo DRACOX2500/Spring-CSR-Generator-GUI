@@ -21,12 +21,9 @@ public class SaveService {
 
     private static final String SAVE_KEY = "directoryPath";
 
+    @SneakyThrows
     public SaveService() {
-        try {
-            this.path = new PropertiesReaderService(APPLICATION_PROPERTIES).getProperty(DIRECTORY_PATH);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.path = new PropertiesReaderService(APPLICATION_PROPERTIES).getProperty(DIRECTORY_PATH);
     }
 
     /**
