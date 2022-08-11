@@ -17,7 +17,7 @@ public class SaveService {
 
     private static String lastDirectoryModelPath = ".";
 
-    private String path;
+    private final String path;
 
     private static final String SAVE_KEY = "directoryPath";
 

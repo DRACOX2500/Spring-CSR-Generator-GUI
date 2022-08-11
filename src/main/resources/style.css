@@ -3,8 +3,18 @@
     -fx-focus-color: transparent;
 }
 
+@font-face {
+    font-family: "Open-Sans";
+    src: url('OpenSans-VariableFont_wdth,wght.ttf');
+}
+
+@font-face {
+    font-family: 'Work-Sans';
+    src: url('WorkSans-VariableFont_wght.ttf');
+}
+
 .tab {
-    -fx-font-family: Arial;
+    -fx-font-family: 'Work-Sans';
     -fx-font-size: 15px;
 }
 
@@ -14,14 +24,22 @@
 
 }
 
-.button {
+#btnGen {
     -fx-background-color: #fff;
     -fx-text-fill: #1b1f23;
+    -fx-padding: 10px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+
+    -fx-font-family: 'Work-Sans';
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
 }
 
-.button:hover {
+#btnGen:hover {
     -fx-background-color: #75ae4c;
     -fx-text-fill: #fff;
+    -fx-cursor: hand;
 }
 
 #body{
@@ -41,4 +59,10 @@
     -fx-padding: 5px;
     -fx-border-insets: 5px;
     -fx-background-insets: 5px;
+
+    -fx-font-family: "Open-Sans";
+    -fx-text-fill: #bbbcbe;
+    -fx-control-inner-background: #262a2d;
+    -fx-highlight-fill: rgba(136, 198, 94, 0.69);
+
 }
