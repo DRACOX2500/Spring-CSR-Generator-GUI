@@ -23,6 +23,7 @@
 >
     <MenuBar fx:id="menuBar">
         <Menu text="File">
+            <MenuItem  text="Open The Last Project" onAction="#onClickOpenLast"/>
             <MenuItem text="Open Models Directory" onAction="#onClickOpen"/>
             <SeparatorMenuItem/>
             <MenuItem text="Exit" onAction="#onClickExit"/>
@@ -35,12 +36,12 @@
     <HBox fx:id="body">
         <SplitPane fx:id="splitPane">
             <TabPane fx:id="tabs">
-                <Tab text="Models" closable="false">
+                <Tab text="MODELS" closable="false">
                     <TreeView fx:id="treeView">
 
                     </TreeView>
                 </Tab>
-                <Tab text="Patterns" closable="false">
+                <Tab text="PATTERNS" closable="false">
                     <ListView fx:id="listView">
 
                     </ListView>

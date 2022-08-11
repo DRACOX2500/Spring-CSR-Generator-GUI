@@ -13,17 +13,97 @@
     src: url('WorkSans-VariableFont_wght.ttf');
 }
 
-.tab {
-    -fx-font-family: 'Work-Sans';
-    -fx-font-size: 15px;
+/*Tabs*/
+.tab-header-area, .tab-header-background {
+    -fx-background-color: #262a2d;
 }
 
+.tab {
+    -fx-background-insets: 0 1 0 1,0,0;
+    -fx-border-style: solid none none none;
+    -fx-text-fill: #fff;
+    -fx-border-width: 3;
+    -fx-border-color: #262a2d;
+    -fx-background-color: #262a2d;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab:hover, .tab:selected, .tab-pane {
+    -fx-border-color: #75ae4c;
+    -fx-background-color: #1b1f23;
+}
+
+.tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #fff;
+    -fx-font-family: 'Work-Sans';
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+/*TreeView*/
+.tree-view {
+    -fx-background-color: #1b1f23;
+}
+
+.tree-cell {
+    -fx-background-color: #1b1f23;
+    -fx-text-fill: #fff;
+    -fx-font-family: 'Work-Sans';
+    -fx-font-weight: bold;
+}
+
+.tree-cell > .tree-disclosure-node > .arrow {
+    -fx-background-color: #fff;
+}
+
+.tree-cell:selected {
+    -fx-background-color: #fff;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #1b1f23;
+    -fx-font-weight: normal;
+}
+
+.tree-cell:selected > .tree-disclosure-node > .arrow {
+    -fx-background-color: #1b1f23;
+}
+
+/*ListView*/
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #75ae4c;
+    -fx-text-fill: white;
+}
+
+.list-cell {
+    -fx-background-color: #1b1f23;
+    -fx-text-fill: white;
+}
+
+.list-cell:odd {
+    -fx-background-color: #262a2d;
+    -fx-text-fill: white;
+}
+
+.list-cell:filled:hover:selected:focused {
+    -fx-cell-hover-color: #fff;
+    -fx-background-color: #fff;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #1b1f23;
+    -fx-font-weight: normal;
+}
+
+/*Split*/
 .split-pane-divider {
     -fx-background-color: #2b2f33;
     -fx-pref-width: 3px;
-
 }
 
+#splitPane {
+    -fx-background-color: #1b1f23;
+}
+
+/*btn-Generate*/
 #btnGen {
     -fx-background-color: #fff;
     -fx-text-fill: #1b1f23;
@@ -42,12 +122,9 @@
     -fx-cursor: hand;
 }
 
+
 #body{
     -fx-padding: 10px;
-    -fx-background-color: #1b1f23;
-}
-
-#splitPane {
     -fx-background-color: #1b1f23;
 }
 
@@ -65,4 +142,6 @@
     -fx-control-inner-background: #262a2d;
     -fx-highlight-fill: rgba(136, 198, 94, 0.69);
 
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: #fff;
 }

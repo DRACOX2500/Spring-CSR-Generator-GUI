@@ -13,5 +13,6 @@ module com.spring.generator.springcsrgeneratorgui {
     exports com.spring.generator.springcsrgeneratorgui;
     exports com.spring.generator.springcsrgeneratorgui.fx.controller;
     exports com.spring.generator.springcsrgeneratorgui.model;
+    exports com.spring.generator.springcsrgeneratorgui.controller;
     opens com.spring.generator.springcsrgeneratorgui.fx.controller to javafx.fxml;
 }
