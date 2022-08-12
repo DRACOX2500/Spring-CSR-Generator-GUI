@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class PatternList implements Runnable {
 
@@ -25,7 +26,7 @@ public class PatternList implements Runnable {
         }
 
         if(patternDirectory.isDirectory() && patternDirectory.listFiles() != null) {
-            this.patternSystemFiles = Arrays.asList(patternDirectory.listFiles());
+            this.patternSystemFiles = Arrays.asList(Objects.requireNonNull(patternDirectory.listFiles()));
         }
     }
 

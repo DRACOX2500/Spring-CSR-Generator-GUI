@@ -53,7 +53,7 @@
 
                 </TextArea>
 
-                <Button fx:id="btnGen" text="Generate !" />
+                <Button fx:id="btnGen" text="Generate !" onAction="#onClickGenerate" />
             </VBox>
         </SplitPane>
     </HBox>

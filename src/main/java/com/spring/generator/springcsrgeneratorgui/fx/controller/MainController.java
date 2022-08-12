@@ -1,5 +1,6 @@
 package com.spring.generator.springcsrgeneratorgui.fx.controller;
 
+import com.spring.generator.springcsrgeneratorgui.controller.Generator;
 import com.spring.generator.springcsrgeneratorgui.controller.ModelController;
 import com.spring.generator.springcsrgeneratorgui.model.ModelFile;
 import com.spring.generator.springcsrgeneratorgui.model.PatternFile;
@@ -20,6 +21,8 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     private final SaveService saveService = new SaveService();
+
+    private ListViewController listViewController;
 
     private final ModelController modelController = new ModelController();
 
@@ -53,10 +56,11 @@ public class MainController implements Initializable {
 
         fileEditor.prefHeightProperty().bind(root.heightProperty());
         btnGen.prefWidthProperty().bind(fileEditor.widthProperty());
+        btnGen.setDisable(true);
 
         menuBar.setFocusTraversable(true);
 
-        new ListViewController(listView, fileEditor);
+        this.listViewController = new ListViewController(listView, fileEditor);
         new TreeViewController(treeView, fileEditor);
     }
 
@@ -70,6 +74,7 @@ public class MainController implements Initializable {
             saveService.saveLastDirectoryModelPath(file.getAbsolutePath());
             modelController.load();
             treeView.setRoot(modelController.getTreeRoot());
+            btnGen.setDisable(false);
         }
     }
 
@@ -82,5 +87,15 @@ public class MainController implements Initializable {
 
         modelController.load();
         treeView.setRoot(modelController.getTreeRoot());
+        btnGen.setDisable(false);
+    }
+
+    public void onClickGenerate() {
+
+        var generator = new Generator();
+
+        generator.generate(
+                listViewController.getPatternController().getPatternFileList()
+        );
     }
 }

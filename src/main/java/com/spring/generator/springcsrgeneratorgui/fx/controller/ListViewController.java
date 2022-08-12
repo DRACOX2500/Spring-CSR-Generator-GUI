@@ -12,12 +12,12 @@ import java.util.Scanner;
 
 public class ListViewController {
 
+    private final PatternController patternController = new PatternController();
+
     public ListViewController(ListView<PatternFile> listView, TextArea fileEditor) {
 
-        var patternController = new PatternController();
-
         listView.setItems(
-                FXCollections.observableList(patternController.getPatternFileList())
+                FXCollections.observableList(this.patternController.getPatternFileList())
         );
 
         listView.setOnMouseClicked(
@@ -39,4 +39,7 @@ public class ListViewController {
         );
     }
 
+    public PatternController getPatternController() {
+        return patternController;
+    }
 }

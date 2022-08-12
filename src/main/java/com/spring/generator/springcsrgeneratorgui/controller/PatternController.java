@@ -6,10 +6,11 @@ import com.spring.generator.springcsrgeneratorgui.service.PatternService;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PatternController {
 
-    private List<PatternFile> patternFileList;
+    private final List<PatternFile> patternFileList;
 
     private final PatternService patternService = new PatternService();
 
@@ -19,6 +20,7 @@ public class PatternController {
     }
 
     private void load() {
+        this.patternFileList.clear();
         var list = this.patternService.getPatternSystemFiles();
         for (File f:
              list) {
@@ -30,26 +32,17 @@ public class PatternController {
         return patternFileList;
     }
 
-    public void setPatternFileList(List<PatternFile> patternFileList) {
-        this.patternFileList = patternFileList;
-    }
-
     public void addPatternFromPatternFile(File patternFile) {
         if(patternFile == null || !patternFile.isFile()) return;
         if(patternFile.isDirectory() && patternFile.listFiles() != null) {
             for (File f:
-                 patternFile.listFiles()) {
+                    Objects.requireNonNull(patternFile.listFiles())) {
                 this.addPatternFromPatternFile(f);
             }
         }
 
-        var title = patternFile.getName();
-
         this.patternFileList.add(
-                new PatternFile(
-                        title.split("Pattern")[0],
-                        patternFile.getAbsolutePath()
-                )
+                new PatternFile(patternFile)
         );
     }
 }
