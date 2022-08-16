@@ -10,6 +10,7 @@ import lombok.SneakyThrows;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -29,12 +30,14 @@ public class Generator {
     }
 
 
-    public void generate(List<PatternFile> patternFileList) {
+    public void generate(List<PatternFile> patternFileList, Map<String, Boolean> map) {
 
         for (PatternFile pf:
              patternFileList) {
 
-            generateFilesFromPattern(pf);
+            if(Boolean.TRUE.equals(map.get(pf.getPName()))) {
+                generateFilesFromPattern(pf);
+            }
         }
     }
 

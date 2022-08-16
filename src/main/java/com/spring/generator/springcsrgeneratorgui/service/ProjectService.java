@@ -3,6 +3,7 @@ package com.spring.generator.springcsrgeneratorgui.service;
 import com.spring.generator.springcsrgeneratorgui.utils.Analyser;
 
 import java.io.File;
+import java.util.Objects;
 
 public class ProjectService {
 
@@ -23,13 +24,15 @@ public class ProjectService {
         String pack = "";
 
         // Method 1 : try to get base package from first model
-        for(File file : modelPack.listFiles()){
+        for(File file : Objects.requireNonNull(modelPack.listFiles())){
             pack = findPack(pack, file);
         }
 
         // Method 2 : try to get base package from Main file
         if(pack.equals("")){
-            File[] mainDirectory = modelPack.getParentFile().listFiles();
+            var mainDirectory = modelPack.getParentFile().listFiles();
+            if( mainDirectory == null) return null;
+
             for(File file : mainDirectory){
                 pack = findPack(pack, file);
             }
@@ -43,9 +46,9 @@ public class ProjectService {
         if(file.isFile()){
             pack = Analyser.searchInFile(file, "package ([a-z0-9]*\\.?)+;");
             if(!pack.equals("")){
-                pack = pack.replace("package ","")
-                .substring(0, pack.length()-1)
-                .replaceAll("\\.model[\\..]*","");
+                pack = pack.replace("package ","");
+                pack = pack.substring(0, pack.length()-1);
+                pack = pack.replaceAll("\\.model[\\..]*","");
             }
         }
         return pack;

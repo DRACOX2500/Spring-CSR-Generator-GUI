@@ -1,15 +1,14 @@
 package com.spring.generator.springcsrgeneratorgui.model;
 
-import lombok.Builder;
-import lombok.Data;
+
+import lombok.Getter;
 
 import java.io.File;
 
-@Builder
-@Data
+@Getter
 public class PatternFile extends File {
 
-    private String pName;
+    private final String pName;
 
     public PatternFile(File file) {
         super(file.getAbsolutePath());

@@ -2,6 +2,8 @@ package com.spring.generator.springcsrgeneratorgui.fx.controller;
 
 import com.spring.generator.springcsrgeneratorgui.controller.Generator;
 import com.spring.generator.springcsrgeneratorgui.controller.ModelController;
+import com.spring.generator.springcsrgeneratorgui.fx.dialog.GenerateConfirm;
+import com.spring.generator.springcsrgeneratorgui.fx.dialog.SelectEditorFontSizeConfirm;
 import com.spring.generator.springcsrgeneratorgui.model.ModelFile;
 import com.spring.generator.springcsrgeneratorgui.model.PatternFile;
 import com.spring.generator.springcsrgeneratorgui.service.SaveService;
@@ -26,6 +28,8 @@ public class MainController implements Initializable {
 
     private final ModelController modelController = new ModelController();
 
+    private TextAreaController textAreaController;
+
     @FXML
     public ListView<PatternFile> listView;
     @FXML
@@ -46,6 +50,16 @@ public class MainController implements Initializable {
     public Button btnGen;
     @FXML
     private MenuBar menuBar;
+    @FXML
+    public HBox btnMenu;
+    @FXML
+    public HBox btnMenuTree;
+    @FXML
+    public Button btnReloadModel;
+    @FXML
+    public Button btnReloadPattern;
+    @FXML
+    public Button btnCheckAll;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,9 +73,13 @@ public class MainController implements Initializable {
         btnGen.setDisable(true);
 
         menuBar.setFocusTraversable(true);
+        listView.prefHeightProperty().bind(root.heightProperty());
+        treeView.prefHeightProperty().bind(root.heightProperty());
 
         this.listViewController = new ListViewController(listView, fileEditor);
         new TreeViewController(treeView, fileEditor);
+
+        this.textAreaController = new TextAreaController(fileEditor);
     }
 
     public void onClickOpen() {
@@ -92,10 +110,40 @@ public class MainController implements Initializable {
 
     public void onClickGenerate() {
 
+        if(Boolean.FALSE.equals(new GenerateConfirm(this.listViewController.getCheckPattern()).getResult())) return;
+
         var generator = new Generator();
 
         generator.generate(
-                listViewController.getPatternController().getPatternFileList()
+                listViewController.getPatternController().getPatternFileList(),
+                this.listViewController.getCheckPattern()
         );
+    }
+
+    public void onClickReloadPattern() {
+        this.listViewController.reload();
+    }
+
+    public void onClickReloadModel() {
+        this.modelController.load();
+        treeView.setRoot(modelController.getTreeRoot());
+    }
+
+    public void listViewCheckAll() {
+        if (this.listViewController.isCheckAllActivate()) {
+            this.listViewController.unCheckAll();
+            this.btnCheckAll.getStyleClass().remove("uncheck");
+            this.btnCheckAll.setTooltip(new Tooltip("Check all"));
+        }
+        else {
+            this.listViewController.checkAll();
+            this.btnCheckAll.getStyleClass().add("uncheck");
+            this.btnCheckAll.setTooltip(new Tooltip("Uncheck all"));
+        }
+
+    }
+
+    public void onClickSelectFontSize() {
+        new SelectEditorFontSizeConfirm(textAreaController);
     }
 }

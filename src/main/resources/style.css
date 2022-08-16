@@ -145,3 +145,36 @@
     -fx-focus-color: transparent;
     -fx-faint-focus-color: #fff;
 }
+
+#btnMenu, #btnMenuTree {
+    -fx-padding: 7px;
+}
+
+#btnMenu > *, #btnMenuTree > * {
+    -fx-pref-width: 35;
+    -fx-font-size: 17;
+
+    -fx-background-size: 25;
+    -fx-background-color: #75ae4c;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+    -fx-background-insets: 2px;
+}
+
+#btnMenu > *:hover, #btnMenuTree > *:hover {
+    -fx-background-color: #6eb937;
+    -fx-cursor: hand;
+
+}
+
+#btnReloadPattern, #btnReloadModel {
+    -fx-background-image: url("images/sync.png");
+}
+
+#btnCheckAll {
+    -fx-background-image: url("images/check_all.png");
+}
+
+#btnCheckAll.uncheck {
+    -fx-background-image: url("images/uncheck_all.png");
+}

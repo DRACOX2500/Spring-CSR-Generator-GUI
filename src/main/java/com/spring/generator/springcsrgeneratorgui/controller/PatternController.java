@@ -19,7 +19,7 @@ public class PatternController {
         this.load();
     }
 
-    private void load() {
+    public void load() {
         this.patternFileList.clear();
         var list = this.patternService.getPatternSystemFiles();
         for (File f:
