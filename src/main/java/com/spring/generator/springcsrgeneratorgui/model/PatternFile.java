@@ -1,28 +1,23 @@
 package com.spring.generator.springcsrgeneratorgui.model;
 
+
+import lombok.Getter;
+
 import java.io.File;
 
-public class PatternFile {
+@Getter
+public class PatternFile extends File {
 
-    private String name;
+    private final String pName;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setNameFromPatternFile(File patternFile) {
-        if(!patternFile.isFile()) return;
-        var title = patternFile.getName();
-        this.name = title.split("Pattern")[0];
+    public PatternFile(File file) {
+        super(file.getAbsolutePath());
+        this.pName = file.getName().split("Pattern")[0];
     }
 
     @Override
     public String toString() {
-        return this.name;
+        return this.pName;
     }
 }
 

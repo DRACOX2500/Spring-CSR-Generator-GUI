@@ -2,11 +2,9 @@ package com.spring.generator.springcsrgeneratorgui.fx;
 
 import com.spring.generator.springcsrgeneratorgui.App;
 import com.spring.generator.springcsrgeneratorgui.MainApplication;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;

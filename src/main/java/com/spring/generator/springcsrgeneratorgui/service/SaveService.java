@@ -17,16 +17,13 @@ public class SaveService {
 
     private static String lastDirectoryModelPath = ".";
 
-    private String path;
+    private final String path;
 
     private static final String SAVE_KEY = "directoryPath";
 
+    @SneakyThrows
     public SaveService() {
-        try {
-            this.path = new PropertiesReaderService(APPLICATION_PROPERTIES).getProperty(DIRECTORY_PATH);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.path = new PropertiesReaderService(APPLICATION_PROPERTIES).getProperty(DIRECTORY_PATH);
     }
 
     /**
@@ -97,11 +94,14 @@ public class SaveService {
         public void run() {
             super.run();
 
-            try (Scanner scan = new Scanner(new File(path))) {
-                String myJson = scan.useDelimiter("\\Z").next();
-                JSONObject myJsonobject = new JSONObject(myJson);
+            var saveFile = new File(path);
+            if(!saveFile.exists()) return;
 
-                setLastDirectoryModelPath(myJsonobject.getString(SAVE_KEY));
+            try (Scanner scan = new Scanner(saveFile)) {
+                String myJson = scan.useDelimiter("\\Z").next();
+                var myJsonObject = new JSONObject(myJson);
+
+                setLastDirectoryModelPath(myJsonObject.getString(SAVE_KEY));
 
             } catch (Exception e) {
                 e.printStackTrace();
