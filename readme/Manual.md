@@ -42,4 +42,4 @@ You can see that the "Generate !" button is now enable !
 |-...
 ```
 
-2. Create your own patterns via another IDE (IntelliJ, Eclipse, VSCode,...) and then move them in **pattern** directory
+2. Create your own patterns via another IDE (IntelliJ, Eclipse, VSCode,...) and then move them in **pattern** directory.
